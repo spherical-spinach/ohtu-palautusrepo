@@ -53,6 +53,29 @@ Register With Username That Is Already In Use
     Submit Credentials
     Page Should Contain  Problem with registration
 
+Login After Successful Registration
+    Set Username  test
+    Set Password  asdfasdf1
+    Set Password Confirmation  asdfasdf1
+    Submit Credentials
+    Click Link  Continue to main page
+    Click Button  Logout
+    Set Username  test
+    Set Password  asdfasdf1
+    Click Button  Login
+    Title Should Be  Ohtu Application main page
+
+Login After Failed Registration
+    Set Username  test
+    Set Password  asdf
+    Set Password Confirmation  asdf
+    Submit Credentials
+    Click Link  Login
+    Set Username  test
+    Set Password  asdf
+    Click Button  Login
+    Page Should Contain  Invalid username or password
+
 *** Keywords ***
 Reset Application And Go To Register Page
     Reset Application
