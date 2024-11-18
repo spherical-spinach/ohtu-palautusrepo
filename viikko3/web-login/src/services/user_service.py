@@ -37,9 +37,16 @@ class UserService:
         return user
 
     def validate(self, username, password, password_confirmation):
+        if self._user_repository.find_by_username(username):
+            raise UserInputError("Problem with registration")
         if not username or not password:
             raise UserInputError("Username and password are required")
-
+        if len(username) < 3 or not username.isalpha() or not username.islower():
+            raise UserInputError("Username has to be only lowercase letters with minimum length of 3")
+        if len(password) < 8 or password.isalpha():
+            raise UserInputError("Password min length is 8 and can't consist only of letters")
+        if not password == password_confirmation:
+            raise UserInputError("Password and its confirmation doesn't match!")
         # toteuta loput tarkastukset tänne ja nosta virhe virhetilanteissa
 
 
